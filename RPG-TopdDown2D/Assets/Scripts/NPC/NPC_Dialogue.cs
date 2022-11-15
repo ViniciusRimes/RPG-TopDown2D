@@ -16,9 +16,9 @@ public class NPC_Dialogue : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    private  void Start()
     {
-        
+        GetNPCInfo();
     }
 
     void Update() //chamado a cada frame
@@ -29,11 +29,26 @@ public class NPC_Dialogue : MonoBehaviour
         }
     }
 
-    void GetTexts()
+    void GetNPCInfo()
     {
         for(int i = 0; i < Dialogue.Dialogues.Count; i++)
         {
-            sentences.Add(Dialogue.Dialogues[i].sentence.portuguese);
+            switch(DialogueControl.instance.language)
+            {
+                case DialogueControl.idiom.pt:
+                sentences.Add(Dialogue.Dialogues[i].sentence.portuguese);
+                break;
+                
+                case DialogueControl.idiom.eng:
+                sentences.Add(Dialogue.Dialogues[i].sentence.english);
+                break;
+
+                case DialogueControl.idiom.spa:
+                sentences.Add(Dialogue.Dialogues[i].sentence.spanish);
+                break;
+
+            }
+            
         }
     }
 
