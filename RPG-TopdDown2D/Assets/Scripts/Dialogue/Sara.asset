@@ -20,17 +20,17 @@ MonoBehaviour:
     profile: {fileID: -2112043945, guid: c2e09f02b481f1349900f53dd6bcb25d, type: 3}
     sentence:
       portuguese: "Ol\xE1, belo garoto!"
-      spanish: 
-      english: 
+      spanish: Hola, chico hermoso!
+      english: Hello, beautiful boy!
   - actorName: "Her\xF3i"
     profile: {fileID: -2112043945, guid: c2e09f02b481f1349900f53dd6bcb25d, type: 3}
     sentence:
       portuguese: Tudo bem?
-      spanish: 
-      english: 
+      spanish: "\xBFc\xF3mo est\xE1s?"
+      english: How are you?
   - actorName: "Mo\xE7a"
     profile: {fileID: -150521240, guid: c2e09f02b481f1349900f53dd6bcb25d, type: 3}
     sentence:
-      portuguese: Tudo e voce?
-      spanish: 
-      english: 
+      portuguese: "Estou bem e voc\xEA?"
+      spanish: Estoy bien y tu?
+      english: I'm fine, thanks. And you?

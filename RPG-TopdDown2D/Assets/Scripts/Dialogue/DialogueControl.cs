@@ -26,11 +26,17 @@ public class DialogueControl : MonoBehaviour
     public float typingSpeed; // velocidade da fala
 
     //Variáveis de controle;
-    private bool isShowing; //se a janela está visível
+    private bool _isShowing; //se a janela está visível
     private int index; //variável de controle de um loop de repetição das falas
     private string[] sentences;
 
     public static DialogueControl instance;
+
+    public bool isShowing
+    {
+        get{return _isShowing;}
+        set{_isShowing = value;}
+    }
 
     public void Awake() //Awake é chamado antes de todos os Start() na hierarquia da execucao dos scripts
     {
@@ -61,12 +67,12 @@ public class DialogueControl : MonoBehaviour
 
     public void Speech(string[] txt) //chamar a fala
     {
-        if(!isShowing)
+        if(!_isShowing)
         {
             dialogueObj.SetActive(true);
             sentences = txt;
             StartCoroutine(TypeSentence());
-            isShowing = true;
+            _isShowing = true;
         }
     }
 
@@ -86,7 +92,7 @@ public class DialogueControl : MonoBehaviour
                 index = 0;
                 dialogueObj.SetActive(false);
                 sentences = null;
-                isShowing= false;
+                _isShowing= false;
 
 
             }
