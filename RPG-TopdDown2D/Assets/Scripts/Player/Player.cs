@@ -7,15 +7,21 @@ public class Player : MonoBehaviour
 
     [SerializeField]private float speed;
     [SerializeField]private float runSpeed;
+
+    private PlayerItems playeritems;
      
     private Rigidbody2D rig;
     
     private float initialSpeed;
-    private bool _isRuning;
-    private bool _isRolling;
-    private bool _isCutting;
-    private Vector2 _direction;
+    private bool _isRuning; //correr
+    private bool _isRolling; //rolar
+    private bool _isCutting; //cortar arvore
+    private Vector2 _direction; //direcao do player
+    private bool _isDigging; //escavar
+    private bool _isWatering; //regar
+    private int handlingObj; //objeto na mão do player
 
+    #region Encapsulation
     public Vector2 direction
     {
         get {return _direction;}
@@ -39,19 +45,64 @@ public class Player : MonoBehaviour
         set {_isCutting = value;}
     }
     
+    public bool isDigging
+    {
+        get {return _isDigging;}
+        set {_isDigging = value;}
+    }
+
+    public bool isWatering
+    {
+        get {return _isWatering;}
+        set {_isWatering = value;}
+    }
+
+
+    #endregion
+    
+    
+    
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         initialSpeed = speed;
+        playeritems = FindObjectOfType<PlayerItems>();
     }
     
     private void Update()
     {
-       OnInput();
+        if(Input.GetKeyDown(KeyCode.Alpha1)) //machado
+        {
+            handlingObj = 1;
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha2)) //enxada
+        {   
+            handlingObj = 2;
+
+        }else if(Input.GetKeyDown(KeyCode.Alpha3)) //regador
+        {
+            handlingObj = 3;
+        }
+
+        OnInput();
 
         OnRun();
         OnRolling();
-        OnCutting();
+        
+        switch(handlingObj)
+        {
+            case 1:
+                OnCutting();
+                break;
+
+            case 2:
+                OnDig();
+                break;
+
+            case 3:
+                OnWatering();
+                break;
+        }
     }
 
     private void FixedUpdate()
@@ -111,6 +162,43 @@ public class Player : MonoBehaviour
         {
             _isCutting = false;
             speed = initialSpeed;
+        }
+    }
+
+    void OnDig()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            _isDigging = true;
+            speed = 0f;
+        }
+        
+        if(Input.GetMouseButtonUp(0))
+        {
+            _isDigging = false;
+            speed = initialSpeed;
+        }
+    }
+
+    void OnWatering()
+    {
+         if(Input.GetMouseButtonDown(0) && playeritems.currentWater > 0)
+        {
+            _isWatering = true;
+            speed = 0f;
+
+        }
+        
+        if(Input.GetMouseButtonUp(0) || playeritems.currentWater < 0)
+        {
+            _isWatering = false;
+            speed = initialSpeed;
+            playeritems.currentWater = 0;
+        }
+
+        if(_isWatering)
+        {
+            playeritems.currentWater -= 0.1f;
         }
     }
 

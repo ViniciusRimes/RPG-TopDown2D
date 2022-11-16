@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerItems : MonoBehaviour
 {
-    [SerializeField] private int _totalWood;
+    [SerializeField] private int _totalWood; //valor dos tocos de madeira
+    [SerializeField] private float _currentWater; //valor da agua no regador
+    private int waterLimit = 50; //limite do regador
 
     public int totalWood
     {
@@ -12,15 +14,18 @@ public class PlayerItems : MonoBehaviour
         set {_totalWood = value;}
     }
 
-    // Start is called before the first frame update
-    void Start()
+     public float currentWater
     {
-        
+        get {return _currentWater;}
+        set {_currentWater= value;}
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void WaterLimit(float water)
     {
-        
+
+        if(_currentWater < waterLimit)
+        {
+            _currentWater += water;
+        }
     }
 }
