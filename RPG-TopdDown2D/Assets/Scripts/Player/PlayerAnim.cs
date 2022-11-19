@@ -8,11 +8,15 @@ public class PlayerAnim : MonoBehaviour
     private Animator anim;
 
     
-    // Start is called before the first frame update
+    
+    
+    private void AWake()
+    {
+    }
     void Start()
     {
-        player = GetComponent<Player>();
         anim = GetComponent<Animator>();
+         player = GetComponent<Player>();
        
     }
 

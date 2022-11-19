@@ -10,10 +10,14 @@ public class Water : MonoBehaviour
 
     private PlayerItems player;
     
-    
-    void Start()
+    private void Awake()
     {
         player = FindObjectOfType<PlayerItems>(); // procurando o objeto na cena
+    }
+    void Start()
+    {
+
+         
     }
 
     
@@ -21,6 +25,7 @@ public class Water : MonoBehaviour
     {
         if(detectingPlayer = true && Input.GetKeyDown(KeyCode.E))
         {
+       
             player.WaterLimit(waterValue); //enchendo o regador
         }
     }
