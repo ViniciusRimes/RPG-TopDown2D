@@ -8,11 +8,14 @@ public class PlayerItems : MonoBehaviour
     [SerializeField]private int _woodLimit = 10; //limite de coleta de madeira
     [SerializeField]private int _waterLimit = 50; //limite do regador
     [SerializeField]private int _carrotLimit = 20; //limite de coleta da cenoura
+     [SerializeField]private int _fishesLimit = 20;
+
     
     [Header("Amounts")]
     [SerializeField] private int _totalWood; //valor dos tocos de madeira coletados
     [SerializeField] private float _currentWater; //valor da agua no regador
     [SerializeField] private int _totalCarrot; //valor das cenouras coletadas
+    [SerializeField] private int _totalfishes; //valor total dos peixes
   
 
     public int totalWood
@@ -35,6 +38,8 @@ public class PlayerItems : MonoBehaviour
     public int waterLimit { get => _waterLimit; set => _waterLimit = value; }
     public int carrotLimit { get => _carrotLimit; set => _carrotLimit = value; }
     public int woodLimit { get => _woodLimit; set => _woodLimit = value; }
+    public int totalfishes { get => _totalfishes; set => _totalfishes = value; }
+    public int fishesLimit { get => _fishesLimit; set => _fishesLimit = value; }
 
     public void WaterLimit(float water)
     {

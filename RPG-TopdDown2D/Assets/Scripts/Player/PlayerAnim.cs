@@ -6,17 +6,15 @@ public class PlayerAnim : MonoBehaviour
 {
     private Player player;
     private Animator anim;
+    private Casting casting;
 
     
-    
-    
-    private void AWake()
-    {
-    }
     void Start()
     {
+    
         anim = GetComponent<Animator>();
-         player = GetComponent<Player>();
+        player = GetComponent<Player>();
+        casting = FindObjectOfType<Casting>();
        
     }
 
@@ -24,6 +22,7 @@ public class PlayerAnim : MonoBehaviour
     void Update()
     {
         OnMove();
+    
     }
 
     #region Movement
@@ -82,6 +81,16 @@ public class PlayerAnim : MonoBehaviour
 
 
     #endregion
-
+    
+    //é chamado quando o jogador pressiona o botao de acao na agua
+    public void OnCastingStarted()
+    {
+        anim.SetTrigger("IsCasting");
+    }   
+    // chamado quando termina a animacao de pescar
+    public void OnCastingEndend()
+    {
+        casting.OnCasting();
+    }
 
 }

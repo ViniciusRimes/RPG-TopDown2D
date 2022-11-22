@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     private Vector2 _direction; //direcao do player
     private bool _isDigging; //escavar
     private bool _isWatering; //regar
-    private int handlingObj; //objeto na mão do player
+    [HideInInspector] public int handlingObj; //objeto na mão do player
 
     #region Encapsulation
     public Vector2 direction
@@ -59,8 +59,8 @@ public class Player : MonoBehaviour
 
 
     #endregion
-    
-    
+
+
     private void Awake()
     {
        playeritems = FindObjectOfType<PlayerItems>();          
@@ -76,15 +76,15 @@ public class Player : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Alpha1)) //machado
         {
-            handlingObj = 1;
+            handlingObj = 0;
         }
         else if(Input.GetKeyDown(KeyCode.Alpha2)) //enxada
         {   
-            handlingObj = 2;
+            handlingObj = 1;
 
         }else if(Input.GetKeyDown(KeyCode.Alpha3)) //regador
         {
-            handlingObj = 3;
+            handlingObj = 2;
         }
 
         OnInput();
@@ -94,15 +94,15 @@ public class Player : MonoBehaviour
         
         switch(handlingObj)
         {
-            case 1:
+            case 0:
                 OnCutting();
                 break;
 
-            case 2:
+            case 1:
                 OnDig();
                 break;
 
-            case 3:
+            case 2:
                 OnWatering();
                 break;
         
