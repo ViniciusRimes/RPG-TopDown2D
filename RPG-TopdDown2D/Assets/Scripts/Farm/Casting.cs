@@ -6,11 +6,11 @@ public class Casting : MonoBehaviour
  {
     private bool detectingPlayer; //se o player está na colisão
     [SerializeField] private int percentage; //porcentagem de chance de pescar um peixe
+    [SerializeField] private GameObject fishPrefab;
 
-
-    private PlayerItems player;
+    private PlayerItems playeritems;
     private PlayerAnim playerAnim;
-    
+    public bool isCasting;
     private void Awake()
     {
         //player = FindObjectOfType<PlayerItems>(); // procurando o objeto na cena
@@ -19,7 +19,7 @@ public class Casting : MonoBehaviour
     void Start()
     {
 
-        player = FindObjectOfType<PlayerItems>(); // procurando o objeto na cena
+        playeritems = FindObjectOfType<PlayerItems>(); // procurando o objeto na cena
         playerAnim = FindObjectOfType<PlayerAnim>();
     }
 
@@ -29,6 +29,12 @@ public class Casting : MonoBehaviour
         if(detectingPlayer && Input.GetKeyDown(KeyCode.E))
         {
            playerAnim.OnCastingStarted();
+           isCasting = true;
+           
+        }
+        else
+        {
+            isCasting = false;
         }
     }
     public void OnCasting()
@@ -39,6 +45,8 @@ public class Casting : MonoBehaviour
         {
             //consegiu pescar
             Debug.Log("Pescou");
+            Instantiate(fishPrefab, playeritems.transform.position + new Vector3(Random.Range(-2f, -1f), 0f, 0f), Quaternion.identity);
+    
         }
         else
         {

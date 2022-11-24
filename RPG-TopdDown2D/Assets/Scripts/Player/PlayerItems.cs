@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerItems : MonoBehaviour
 {
     [Header("Limits")]
-    [SerializeField]private int _woodLimit = 10; //limite de coleta de madeira
-    [SerializeField]private int _waterLimit = 50; //limite do regador
-    [SerializeField]private int _carrotLimit = 20; //limite de coleta da cenoura
-     [SerializeField]private int _fishesLimit = 20;
+    [SerializeField]private int _woodLimit = 5; //limite de coleta de madeira
+    [SerializeField]private float _waterLimit = 50; //limite do regador
+    [SerializeField]private int _carrotLimit = 10; //limite de coleta da cenoura
+    [SerializeField]private int _fishesLimit = 10; //limite dos peixes
 
     
     [Header("Amounts")]
@@ -35,7 +35,7 @@ public class PlayerItems : MonoBehaviour
         set {_currentWater= value;}
     }
 
-    public int waterLimit { get => _waterLimit; set => _waterLimit = value; }
+    public float waterLimit { get => _waterLimit; set => _waterLimit = value; }
     public int carrotLimit { get => _carrotLimit; set => _carrotLimit = value; }
     public int woodLimit { get => _woodLimit; set => _woodLimit = value; }
     public int totalfishes { get => _totalfishes; set => _totalfishes = value; }

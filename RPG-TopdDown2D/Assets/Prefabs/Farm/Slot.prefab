@@ -77,7 +77,7 @@ MonoBehaviour:
   carrot: {fileID: 1320557447, guid: b2467ad2a3c66dd458c65dfe6286c15f, type: 3}
   digAmount: 5
   detecting: 0
-  waterAmount: 30
+  waterAmount: 10
 --- !u!1 &313509436659385538
 GameObject:
   m_ObjectHideFlags: 0

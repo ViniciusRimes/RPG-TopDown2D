@@ -47,8 +47,12 @@ public class SlotFarm : MonoBehaviour
                 if(Input.GetKeyDown(KeyCode.E))
                 {
                     spriterenderer.sprite = null;
-                    playerItems.totalCarrot += 1;
-                    currentWater = 0;
+                    if(playerItems.totalCarrot < playerItems.carrotLimit)
+                    {
+                        playerItems.totalCarrot += 1;
+                          currentWater = 0;
+                    }
+                    
                 }
 
             }

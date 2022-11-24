@@ -7,15 +7,24 @@ public class Wood : MonoBehaviour
     
     [SerializeField] private float speed;
     [SerializeField] private float timeMove;
+    private PlayerItems playerItems;
 
     private float timeCount;
+
+    private void Start()
+    {
+        playerItems = FindObjectOfType<PlayerItems>();
+    }
     
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerItems>().totalWood++;
-            Destroy(gameObject);
+            if(playerItems.totalWood < playerItems.woodLimit)
+            {
+                collision.GetComponent<PlayerItems>().totalWood +=1;
+                Destroy(gameObject);
+            }
         }
     }
 
