@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     private Vector2 _direction; //direcao do player
     private bool _isDigging; //escavar
     private bool _isWatering; //regar
+
+    
     [HideInInspector] public int handlingObj; //objeto na mão do player
 
     #region Encapsulation
