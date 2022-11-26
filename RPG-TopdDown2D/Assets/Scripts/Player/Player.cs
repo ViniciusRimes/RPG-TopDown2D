@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
+    public bool isPaused;
     [SerializeField]private float speed;
     [SerializeField]private float runSpeed;
 
@@ -65,34 +65,40 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-       playeritems = FindObjectOfType<PlayerItems>();          
-
+       
     }
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         initialSpeed = speed;
+        playeritems = FindObjectOfType<PlayerItems>();         
+
     }
     
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1)) //machado
+        if(!isPaused)
         {
+            if(Input.GetKeyDown(KeyCode.Alpha1)) //machado
+            {
             handlingObj = 0;
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha2)) //enxada
-        {   
+            }
+            
+            else if(Input.GetKeyDown(KeyCode.Alpha2)) //enxada
+            {   
             handlingObj = 1;
-
-        }else if(Input.GetKeyDown(KeyCode.Alpha3)) //regador
-        {
+            }
+            
+            else if(Input.GetKeyDown(KeyCode.Alpha3)) //regador
+            {
             handlingObj = 2;
-        }
+            }
 
         OnInput();
 
         OnRun();
         OnRolling();
+    
         
         switch(handlingObj)
         {
@@ -112,9 +118,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    }
+        
     private void FixedUpdate()
     {
-       OnMove();
+        if(!isPaused)
+        {
+        OnMove();
+        }
+    
     }
 
     #region Movement
@@ -215,6 +227,7 @@ public class Player : MonoBehaviour
         }
 
     }
+
 
 
     #endregion 

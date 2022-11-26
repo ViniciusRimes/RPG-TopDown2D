@@ -8,6 +8,8 @@ public class PlayerAnim : MonoBehaviour
     private Animator anim;
     private Casting casting;
 
+    private House house;
+
     
     void Start()
     {
@@ -15,6 +17,7 @@ public class PlayerAnim : MonoBehaviour
         anim = GetComponent<Animator>();
         player = GetComponent<Player>();
         casting = FindObjectOfType<Casting>();
+        house = FindObjectOfType<House>();
        
     }
 
@@ -22,6 +25,7 @@ public class PlayerAnim : MonoBehaviour
     void Update()
     {
         OnMove();
+        
     
     }
 
@@ -86,11 +90,22 @@ public class PlayerAnim : MonoBehaviour
     public void OnCastingStarted()
     {
         anim.SetTrigger("IsCasting");
+        player.isPaused = true;
     }   
     // chamado quando termina a animacao de pescar
     public void OnCastingEndend()
     {
         casting.OnCasting();
+        player.isPaused = false;
+    }
+
+    public void OnHammeringStarted()
+    {
+        anim.SetBool("isHammering", true);
+    }
+    public void OnHammeringEnded()
+    {
+        anim.SetBool("isHammering", false);
     }
 
 }

@@ -11,10 +11,12 @@ public class Casting : MonoBehaviour
     private PlayerItems playeritems;
     private PlayerAnim playerAnim;
     public bool isCasting;
+
+
+
     private void Awake()
     {
-        //player = FindObjectOfType<PlayerItems>(); // procurando o objeto na cena
-        //playerAnim = FindObjectOfType<PlayerAnim>();
+        
     }
     void Start()
     {
@@ -28,8 +30,10 @@ public class Casting : MonoBehaviour
     {
         if(detectingPlayer && Input.GetKeyDown(KeyCode.E))
         {
+           
            playerAnim.OnCastingStarted();
            isCasting = true;
+           
            
         }
         else
