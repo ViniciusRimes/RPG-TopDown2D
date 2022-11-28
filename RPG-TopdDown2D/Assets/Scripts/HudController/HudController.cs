@@ -13,38 +13,30 @@ public class HudController : MonoBehaviour
     [SerializeField] private Image waterUIBar;
     [SerializeField] private Image woodUIBar;
     [SerializeField] private Image carrotUIBar;
-     [SerializeField] private Image fishUIBar;
+    [SerializeField] private Image fishUIBar;
 
 
     [Header("Tools")]
-    // [SerializeField] private Image axeUI;
-    // [SerializeField] private Image shovelUI;
-    // [SerializeField] private Image bucketUI;
 
     public List <Image> ToolsUI = new List<Image>();
     [SerializeField] private Color colorImage;
     [SerializeField] private Color alphaColor;
 
-    private void Awake()
-    {
-        //playerItems = FindObjectOfType<PlayerItems>();
-        //player = FindObjectOfType<Player>();
-    }
     void Start()
     {
-        playerItems = FindObjectOfType<PlayerItems>();
-        player = FindObjectOfType<Player>();
-
         waterUIBar.fillAmount = 0f;
         woodUIBar.fillAmount = 0f;
         carrotUIBar.fillAmount = 0f;
         fishUIBar.fillAmount = 0f;
         
+        playerItems = FindObjectOfType<PlayerItems>();
+        player = FindObjectOfType<Player>();
+        
     }
 
     void Update()
     {
-        waterUIBar.fillAmount = playerItems.currentWater / playerItems.waterLimit;
+        waterUIBar.fillAmount = playerItems.currentWater / playerItems.waterLimit ;
         woodUIBar.fillAmount = playerItems.totalWood / playerItems.woodLimit;
         carrotUIBar.fillAmount = playerItems.totalCarrot / playerItems.carrotLimit;
         fishUIBar.fillAmount = playerItems.totalfishes / playerItems.fishesLimit;

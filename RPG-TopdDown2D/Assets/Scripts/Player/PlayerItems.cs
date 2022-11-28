@@ -5,41 +5,37 @@ using UnityEngine;
 public class PlayerItems : MonoBehaviour
 {
     [Header("Limits")]
-    [SerializeField]private int _woodLimit = 5; //limite de coleta de madeira
+    [SerializeField]private float _woodLimit = 5; //limite de coleta de madeira
     [SerializeField]private float _waterLimit = 50; //limite do regador
-    [SerializeField]private int _carrotLimit = 10; //limite de coleta da cenoura
-    [SerializeField]private int _fishesLimit = 10; //limite dos peixes
+    [SerializeField]private float _carrotLimit = 10; //limite de coleta da cenoura
+    [SerializeField]private float _fishesLimit = 10; //limite dos peixes
 
     
     [Header("Amounts")]
-    [SerializeField] private int _totalWood; //valor dos tocos de madeira coletados
+    [SerializeField] private float _totalWood; //valor dos tocos de madeira coletados
     [SerializeField] private float _currentWater; //valor da agua no regador
-    [SerializeField] private int _totalCarrot; //valor das cenouras coletadas
-    [SerializeField] private int _totalfishes; //valor total dos peixes
+    [SerializeField] private float _totalCarrot; //valor das cenouras coletadas
+    [SerializeField] private float _totalfishes; //valor total dos peixes
   
 
-    public int totalWood
+    public float totalWood
     {
         get {return _totalWood;}
         set {_totalWood = value;}
     }
-    public int totalCarrot
+    public float totalCarrot
     {
         get {return _totalCarrot;}
         set {_totalCarrot = value;}
     }
 
-     public float currentWater
-    {
-        get {return _currentWater;}
-        set {_currentWater= value;}
-    }
-
+    
+    public float currentWater{get {return _currentWater;} set {_currentWater= value;}}
     public float waterLimit { get => _waterLimit; set => _waterLimit = value; }
-    public int carrotLimit { get => _carrotLimit; set => _carrotLimit = value; }
-    public int woodLimit { get => _woodLimit; set => _woodLimit = value; }
-    public int totalfishes { get => _totalfishes; set => _totalfishes = value; }
-    public int fishesLimit { get => _fishesLimit; set => _fishesLimit = value; }
+    public float carrotLimit { get => _carrotLimit; set => _carrotLimit = value; }
+    public float woodLimit { get => _woodLimit; set => _woodLimit = value; }
+    public float totalfishes { get => _totalfishes; set => _totalfishes = value; }
+    public float fishesLimit { get => _fishesLimit; set => _fishesLimit = value; }
 
     public void WaterLimit(float water)
     {
