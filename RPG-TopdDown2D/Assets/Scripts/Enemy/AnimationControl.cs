@@ -4,15 +4,45 @@ using UnityEngine;
 
 public class AnimationControl : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Animator anim;
+
+    [SerializeField] private Transform point;
+    [SerializeField] private float radius;
+    [SerializeField] private LayerMask playerLayer;
+
+
+    private void Start()
     {
-        
+        anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlayAnim(int value)
     {
-        
+        anim.SetInteger("Transition", value);
     }
+
+    public void Attack()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(point.position, radius, playerLayer);
+    
+        if(hit != null)
+        {
+            //detecta colisao com o player
+            Debug.Log("Bateu");
+        }
+        else
+        {
+
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(point.position, radius);
+    }
+
+
+
+
+
 }
