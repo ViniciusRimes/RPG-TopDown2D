@@ -5,15 +5,18 @@ using UnityEngine;
 public class AnimationControl : MonoBehaviour
 {
     private Animator anim;
+    private PlayerAnim playerAnim;
 
     [SerializeField] private Transform point;
     [SerializeField] private float radius;
     [SerializeField] private LayerMask playerLayer;
 
 
+
     private void Start()
     {
         anim = GetComponent<Animator>();
+        playerAnim = FindObjectOfType<PlayerAnim>();
     }
 
     public void PlayAnim(int value)
@@ -28,7 +31,8 @@ public class AnimationControl : MonoBehaviour
         if(hit != null)
         {
             //detecta colisao com o player
-            Debug.Log("Bateu");
+            playerAnim.OnHurt(); //hit
+
         }
         else
         {

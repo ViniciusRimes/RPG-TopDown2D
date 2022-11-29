@@ -7,8 +7,18 @@ public class PlayerAnim : MonoBehaviour
     private Player player;
     private Animator anim;
     private Casting casting;
-
     private House house;
+    private bool isHitting;
+    private float timeCount;
+    [SerializeField] private float recoveryTime = 1f;
+    
+    [Header("Attack Settings")]
+    [SerializeField]private Transform point; 
+    [SerializeField] private float radius;
+    [SerializeField] private LayerMask enemyLayer;
+
+    public float life = 100;
+
 
     
     void Start()
@@ -25,12 +35,23 @@ public class PlayerAnim : MonoBehaviour
     void Update()
     {
         OnMove();
+        OnAttackPlayer();
+
+        if(isHitting)
+        {
+         timeCount += Time.deltaTime;
         
+        if(timeCount >= recoveryTime)
+        {
+            isHitting = false;
+            timeCount = 0f;
+        }
+        }
     
     }
 
     #region Movement
-    
+
     void OnMove()
     {
         if (player.direction.sqrMagnitude > 0 )
@@ -85,6 +106,28 @@ public class PlayerAnim : MonoBehaviour
 
 
     #endregion
+
+    #region Attack
+
+    public void OnAttack()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(point.position, radius, enemyLayer);
+        if(hit != null)
+        {
+            //atacou o inimigo
+           
+            Debug.Log("Bateu");
+    
+        }
+    }
+
+    public void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(point.position, radius);
+    }
+    
+
+    #endregion
     
     //é chamado quando o jogador pressiona o botao de acao na agua
     public void OnCastingStarted()
@@ -106,6 +149,23 @@ public class PlayerAnim : MonoBehaviour
     public void OnHammeringEnded()
     {
         anim.SetBool("isHammering", false);
+    }
+
+    public void OnHurt()
+    {
+       if(!isHitting)
+       {
+        anim.SetTrigger("isHurt");
+        isHitting = true;
+       }
+    }
+
+    public void OnAttackPlayer()
+    {
+        if(player.isAttack)
+        {
+            anim.SetInteger("Transition", 6);
+        }
     }
 
 }

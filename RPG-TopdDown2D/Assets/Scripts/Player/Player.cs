@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField]private float runSpeed;
 
     private PlayerItems playeritems;
+    private PlayerAnim playerAnim;
      
     private Rigidbody2D rig;
 
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
     private Vector2 _direction; //direcao do player
     private bool _isDigging; //escavar
     private bool _isWatering; //regar
+    private bool _isAttack;
 
     
     [HideInInspector] public int handlingObj; //objeto na mão do player
@@ -59,6 +61,8 @@ public class Player : MonoBehaviour
         set {_isWatering = value;}
     }
 
+    public bool isAttack { get => _isAttack; set => _isAttack = value; }
+
 
     #endregion
 
@@ -71,7 +75,8 @@ public class Player : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         initialSpeed = speed;
-        playeritems = FindObjectOfType<PlayerItems>();         
+        playeritems = FindObjectOfType<PlayerItems>();  
+        playerAnim = FindObjectOfType<PlayerAnim>();
 
     }
     
@@ -94,6 +99,11 @@ public class Player : MonoBehaviour
             handlingObj = 2;
             }
 
+            else if(Input.GetKeyDown(KeyCode.Alpha4)) //espada
+            {
+            handlingObj = 3;
+            }
+
         OnInput();
 
         OnRun();
@@ -113,6 +123,10 @@ public class Player : MonoBehaviour
             case 2:
                 OnWatering();
                 break;
+            case 3:
+                OnAttack();
+                break;
+
         
                 
         }
@@ -231,6 +245,25 @@ public class Player : MonoBehaviour
 
 
     #endregion 
+
+    #region Combat
+
+    public void OnAttack()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            _isAttack = true;
+        }
+
+        if(Input.GetMouseButtonUp(0))
+        {
+            _isAttack = false;
+        }
+
+
+    }
+
+    #endregion
 
 
     
