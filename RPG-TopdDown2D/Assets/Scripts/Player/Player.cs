@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     private bool _isDigging; //escavar
     private bool _isWatering; //regar
     private bool _isAttack;
+    public float Damage;
 
     
     [HideInInspector] public int handlingObj; //objeto na mão do player
@@ -87,6 +88,7 @@ public class Player : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Alpha1)) //machado
             {
             handlingObj = 0;
+            Damage = 10;
             }
             
             else if(Input.GetKeyDown(KeyCode.Alpha2)) //enxada
@@ -102,6 +104,7 @@ public class Player : MonoBehaviour
             else if(Input.GetKeyDown(KeyCode.Alpha4)) //espada
             {
             handlingObj = 3;
+            Damage = 30;
             }
 
         OnInput();

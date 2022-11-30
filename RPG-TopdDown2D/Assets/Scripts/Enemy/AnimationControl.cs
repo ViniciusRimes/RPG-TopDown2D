@@ -7,6 +7,7 @@ public class AnimationControl : MonoBehaviour
     private Animator anim;
     private PlayerAnim playerAnim;
     private Skeleton skeleton;
+    private Player player;
 
     [SerializeField] private Transform point;
     [SerializeField] private float radius;
@@ -18,7 +19,9 @@ public class AnimationControl : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         playerAnim = FindObjectOfType<PlayerAnim>();
-        skeleton = FindObjectOfType<Skeleton>();
+        skeleton = GetComponentInParent<Skeleton>();
+        player = FindObjectOfType<Player>();
+    
     }
     public void PlayAnim(int value)
     {
@@ -28,25 +31,45 @@ public class AnimationControl : MonoBehaviour
 
     public void Attack()
     {
-        Collider2D hit = Physics2D.OverlapCircle(point.position, radius, playerLayer);
-    
-        if(hit != null)
+        if(!skeleton.isDead)
         {
+            Collider2D hit = Physics2D.OverlapCircle(point.position, radius, playerLayer);
+    
+            if(hit != null)
+            {
             //detecta colisao com o player
             playerAnim.OnHurt(); //hit
 
+            }
         }
+        
+    
     }
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(point.position, radius);
+         Gizmos.DrawWireSphere(point.position, radius);
     }
 
     public void OnHit() //hit do skeleton
     {
-        anim.SetTrigger("isHurt");
-        skeleton.Health -= 20;
+        if(skeleton.currentHealth <= 0)
+        {
+            skeleton.isDead = true;
+            anim.SetTrigger("isDeath");
+            Destroy(skeleton.gameObject, 0.83f);
+        }
+
+        else
+        {
+           
+            anim.SetTrigger("isHurt");
+            skeleton.currentHealth -= player.Damage;
+
+            skeleton.HealthBar.fillAmount = skeleton.currentHealth / skeleton.totalHealth;
+
+        }
+
     }
 
 }

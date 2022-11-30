@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Skeleton : MonoBehaviour
 {
     [Header("Stats")]
-    public float Health = 100;
+    public float currentHealth = 100;
+    [SerializeField] public Image HealthBar;
+    public float totalHealth;
+    public bool isDead;
     
     [Header("Components")]
     [SerializeField] private NavMeshAgent agent;
@@ -17,8 +21,9 @@ public class Skeleton : MonoBehaviour
 
     void Start()
     {
+        currentHealth = totalHealth;
+
         player = FindObjectOfType<Player>();
-        animationControl = FindObjectOfType<AnimationControl>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
@@ -26,8 +31,9 @@ public class Skeleton : MonoBehaviour
 
     void Update()
     {
-
-        agent.SetDestination(player.transform.position); //seguir o player
+        if(!isDead)
+        {
+            agent.SetDestination(player.transform.position); //seguir o player
 
         if(Vector2.Distance(transform.position, player.transform.position) < agent.stoppingDistance)
         {
@@ -46,12 +52,16 @@ public class Skeleton : MonoBehaviour
         if(posX > 0) //direita
         {
             transform.eulerAngles = new Vector2(0,0);
+            HealthBar.transform.eulerAngles = new Vector2(0,0);
         }
         else //esquerda
         {
             transform.eulerAngles = new Vector2 (0,180);
+            HealthBar.transform.eulerAngles = new Vector2(0,180);
         }
        
+        }
     }
+       
 
 }
