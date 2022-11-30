@@ -6,6 +6,7 @@ public class AnimationControl : MonoBehaviour
 {
     private Animator anim;
     private PlayerAnim playerAnim;
+    private Skeleton skeleton;
 
     [SerializeField] private Transform point;
     [SerializeField] private float radius;
@@ -17,12 +18,13 @@ public class AnimationControl : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         playerAnim = FindObjectOfType<PlayerAnim>();
+        skeleton = FindObjectOfType<Skeleton>();
     }
-
     public void PlayAnim(int value)
     {
         anim.SetInteger("Transition", value);
     }
+
 
     public void Attack()
     {
@@ -34,10 +36,6 @@ public class AnimationControl : MonoBehaviour
             playerAnim.OnHurt(); //hit
 
         }
-        else
-        {
-
-        }
     }
 
     private void OnDrawGizmosSelected()
@@ -45,8 +43,10 @@ public class AnimationControl : MonoBehaviour
         Gizmos.DrawWireSphere(point.position, radius);
     }
 
-
-
-
+    public void OnHit() //hit do skeleton
+    {
+        anim.SetTrigger("isHurt");
+        skeleton.Health -= 20;
+    }
 
 }

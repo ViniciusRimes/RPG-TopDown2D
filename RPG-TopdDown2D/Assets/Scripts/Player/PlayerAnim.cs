@@ -17,7 +17,6 @@ public class PlayerAnim : MonoBehaviour
     [SerializeField] private float radius;
     [SerializeField] private LayerMask enemyLayer;
 
-    public float life = 100;
 
 
     
@@ -112,12 +111,13 @@ public class PlayerAnim : MonoBehaviour
     public void OnAttack()
     {
         Collider2D hit = Physics2D.OverlapCircle(point.position, radius, enemyLayer);
+        
         if(hit != null)
         {
             //atacou o inimigo
-           
+           hit.GetComponentInChildren<AnimationControl>().OnHit();
             Debug.Log("Bateu");
-    
+            
         }
     }
 
@@ -125,10 +125,29 @@ public class PlayerAnim : MonoBehaviour
     {
         Gizmos.DrawWireSphere(point.position, radius);
     }
+
+    public void OnHurt() //ataque do inimigo
+    {
+       if(!isHitting)
+       {
+        anim.SetTrigger("isHurt");
+        isHitting = true;
+       }
+    }
+
+    public void OnAttackPlayer() //ataque do player
+    {
+        if(player.isAttack)
+        {
+            anim.SetInteger("Transition", 6);
+        }
+    }
     
 
     #endregion
     
+    
+    #region Casting
     //é chamado quando o jogador pressiona o botao de acao na agua
     public void OnCastingStarted()
     {
@@ -151,21 +170,6 @@ public class PlayerAnim : MonoBehaviour
         anim.SetBool("isHammering", false);
     }
 
-    public void OnHurt()
-    {
-       if(!isHitting)
-       {
-        anim.SetTrigger("isHurt");
-        isHitting = true;
-       }
-    }
-
-    public void OnAttackPlayer()
-    {
-        if(player.isAttack)
-        {
-            anim.SetInteger("Transition", 6);
-        }
-    }
+    #endregion
 
 }

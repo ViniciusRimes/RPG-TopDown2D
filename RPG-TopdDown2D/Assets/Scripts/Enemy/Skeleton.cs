@@ -5,10 +5,16 @@ using UnityEngine.AI;
 
 public class Skeleton : MonoBehaviour
 {
-    [SerializeField] private NavMeshAgent agent;
-    private Player player;
-    private AnimationControl animationControl;
+    [Header("Stats")]
+    public float Health = 100;
     
+    [Header("Components")]
+    [SerializeField] private NavMeshAgent agent;
+    [SerializeField]private AnimationControl animationControl;
+    private Player player;
+
+
+
     void Start()
     {
         player = FindObjectOfType<Player>();
@@ -20,6 +26,7 @@ public class Skeleton : MonoBehaviour
 
     void Update()
     {
+
         agent.SetDestination(player.transform.position); //seguir o player
 
         if(Vector2.Distance(transform.position, player.transform.position) < agent.stoppingDistance)
@@ -44,5 +51,7 @@ public class Skeleton : MonoBehaviour
         {
             transform.eulerAngles = new Vector2 (0,180);
         }
+       
     }
+
 }
