@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public int handlingObj; //objeto na mão do player
      
     private Rigidbody2D rig;
-    public float Damage;
+    [HideInInspector]public float Damage;
 
     #region Varibles privates
     private float initialSpeed;

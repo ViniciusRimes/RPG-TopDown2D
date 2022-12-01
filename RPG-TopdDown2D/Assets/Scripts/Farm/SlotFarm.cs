@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class SlotFarm : MonoBehaviour
 {
-    
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+     [SerializeField] private AudioClip holeSFX;
+     [SerializeField] private AudioClip carrotSFX;
+
     [Header("Components")]
     [SerializeField] private SpriteRenderer spriterenderer;
     [SerializeField] private Sprite hole;
@@ -17,16 +21,14 @@ public class SlotFarm : MonoBehaviour
     private int initialDigAmount;
     private float currentWater;
     private bool dugHole;
+    private bool plantedCarrot;
  
     private PlayerItems playerItems;
-    
-    private void Awake()
-    {
-        playerItems = FindObjectOfType<PlayerItems>();
-    }
+
     private void Start()
     {
         initialDigAmount = digAmount;
+        playerItems = FindObjectOfType<PlayerItems>();
         
     }
 
@@ -39,22 +41,26 @@ public class SlotFarm : MonoBehaviour
                 currentWater += 0.01f;
             }
         
-            if(currentWater >= waterAmount)
+            if(currentWater >= waterAmount && !plantedCarrot)
             {
+                audioSource.PlayOneShot(holeSFX);
                 spriterenderer.sprite = carrot; //encheu total de agua;
+                plantedCarrot = true;
+
+            }
             
-
-                if(Input.GetKeyDown(KeyCode.E))
+            if(Input.GetKeyDown(KeyCode.E) && plantedCarrot)
+            {
+                if(playerItems.totalCarrot < playerItems.carrotLimit)
                 {
+                    audioSource.PlayOneShot(carrotSFX);
                     spriterenderer.sprite = null;
-                    if(playerItems.totalCarrot < playerItems.carrotLimit)
-                    {
-                        playerItems.totalCarrot += 1;
-                          currentWater = 0;
-                    }
-                    
+                    currentWater = 0f;
+                    playerItems.totalCarrot += 1;
+                    dugHole = false;
+                    plantedCarrot = false;
                 }
-
+                    
             }
         }
         
