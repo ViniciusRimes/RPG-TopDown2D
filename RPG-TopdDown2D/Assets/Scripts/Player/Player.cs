@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -10,9 +11,12 @@ public class Player : MonoBehaviour
 
     private PlayerItems playeritems;
     private PlayerAnim playerAnim;
+    [HideInInspector] public int handlingObj; //objeto na mão do player
      
     private Rigidbody2D rig;
+    public float Damage;
 
+    #region Varibles privates
     private float initialSpeed;
     private bool _isRuning; //correr
     private bool _isRolling; //rolar
@@ -21,10 +25,7 @@ public class Player : MonoBehaviour
     private bool _isDigging; //escavar
     private bool _isWatering; //regar
     private bool _isAttack;
-    public float Damage;
-
-    
-    [HideInInspector] public int handlingObj; //objeto na mão do player
+    #endregion
 
     #region Encapsulation
     public Vector2 direction
@@ -130,11 +131,15 @@ public class Player : MonoBehaviour
                 OnAttack();
                 break;
 
-        
-                
         }
-    }
 
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("test");
+        }
+    
     }
         
     private void FixedUpdate()

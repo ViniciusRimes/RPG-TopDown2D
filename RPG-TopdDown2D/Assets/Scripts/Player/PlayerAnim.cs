@@ -116,8 +116,6 @@ public class PlayerAnim : MonoBehaviour
         {
             //atacou o inimigo
            hit.GetComponentInChildren<AnimationControl>().OnHit();
-            Debug.Log("Bateu");
-            
         }
     }
 
