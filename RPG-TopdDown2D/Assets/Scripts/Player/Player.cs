@@ -89,7 +89,6 @@ public class Player : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Alpha1)) //machado
             {
             handlingObj = 0;
-            Damage = 10;
             }
             
             else if(Input.GetKeyDown(KeyCode.Alpha2)) //enxada
@@ -105,33 +104,16 @@ public class Player : MonoBehaviour
             else if(Input.GetKeyDown(KeyCode.Alpha4)) //espada
             {
             handlingObj = 3;
-            Damage = 30;
             }
 
         OnInput();
 
         OnRun();
         OnRolling();
-    
-        
-        switch(handlingObj)
-        {
-            case 0:
-                OnCutting();
-                break;
-
-            case 1:
-                OnDig();
-                break;
-
-            case 2:
-                OnWatering();
-                break;
-            case 3:
-                OnAttack();
-                break;
-
-        }
+        OnCutting();
+        OnDig();
+        OnAttack();
+        OnWatering();
 
         }
 
@@ -193,59 +175,79 @@ public class Player : MonoBehaviour
 
     void OnCutting()
     {
-        
-        if(Input.GetMouseButtonDown(0))
+        if(handlingObj == 0)
         {
+            if(Input.GetMouseButtonDown(0))
+            {
             _isCutting = true;
             speed = 0f;
-        }
+            Damage = 10f;
+            }
         
-        if(Input.GetMouseButtonUp(0))
-        {
+            if(Input.GetMouseButtonUp(0))
+            {
             _isCutting = false;
             speed = initialSpeed;
+            }
+        }
+        else
+        {
+            _isCutting = false;
         }
     }
 
     void OnDig()
     {
-       
-        if(Input.GetMouseButtonDown(0))
-        {
+       if(handlingObj == 1)
+       {
+            if(Input.GetMouseButtonDown(0))
+            {
             _isDigging = true;
             speed = 0f;
-        }
+            }
         
-        if(Input.GetMouseButtonUp(0))
-        {
+            if(Input.GetMouseButtonUp(0))
+            {
             _isDigging = false;
             speed = initialSpeed;
-        }
+            }
+       }
+       else
+       {
+            _isDigging =false;
+       }
+        
     }
 
     void OnWatering()
     {
-    
-         if(Input.GetMouseButtonDown(0) && playeritems.currentWater > 0)
+        if(handlingObj == 2)
         {
+            if(Input.GetMouseButtonDown(0) && playeritems.currentWater > 0)
+            {
             _isWatering = true;
             speed = initialSpeed;
 
-        }
+            }
         
-        if(Input.GetMouseButtonUp(0) || playeritems.currentWater < 0)
-        {
+            if(Input.GetMouseButtonUp(0) || playeritems.currentWater < 0)
+            {
             _isWatering = false;
             speed = initialSpeed;
             if(playeritems.currentWater < 0)
             {
                 playeritems.currentWater = 0;
             }
-        }
+            }   
 
-        if(_isWatering)
-        {
+            if(_isWatering)
+            {
             playeritems.currentWater -= 0.01f;
+            }
+        }
+        else
+        {
+            _isWatering = false;
         }
 
     }
@@ -258,12 +260,20 @@ public class Player : MonoBehaviour
 
     public void OnAttack()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(handlingObj == 3)
         {
+            if(Input.GetMouseButtonDown(0))
+            {
             _isAttack = true;
-        }
+            Damage = 40f;
+            }
 
-        if(Input.GetMouseButtonUp(0))
+            if(Input.GetMouseButtonUp(0))
+            {
+            _isAttack = false;
+            }
+        }
+        else
         {
             _isAttack = false;
         }

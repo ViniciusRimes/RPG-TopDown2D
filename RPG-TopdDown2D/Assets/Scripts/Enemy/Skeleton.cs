@@ -11,11 +11,16 @@ public class Skeleton : MonoBehaviour
     [SerializeField] public Image HealthBar;
     public float totalHealth;
     public bool isDead;
+    public float Radius;
     
     [Header("Components")]
     [SerializeField] private NavMeshAgent agent;
     [SerializeField]private AnimationControl animationControl;
+    [SerializeField]private LayerMask playerLayer;
     private Player player;
+    private bool detectPlayer;
+
+    
 
 
 
@@ -31,20 +36,23 @@ public class Skeleton : MonoBehaviour
 
     void Update()
     {
-        if(!isDead)
+       if(!isDead && detectPlayer)
         {
+            agent.isStopped = false;
             agent.SetDestination(player.transform.position); //seguir o player
 
-        if(Vector2.Distance(transform.position, player.transform.position) < agent.stoppingDistance)
-        {
-        //chegou no limite de distancia // skeleton para
-        animationControl.PlayAnim(2); //attack
+            if(Vector2.Distance(transform.position, player.transform.position) < agent.stoppingDistance)
+            {
+                //chegou no limite de distancia // skeleton para
+                animationControl.PlayAnim(2); //attack
 
-        }
-        else
-        {
-        //skeleton segue o player
-        animationControl.PlayAnim(1); //walking
+            }
+            else
+            {
+            //skeleton segue o player
+            animationControl.PlayAnim(1); //walking
+            }
+            //enxergou o player
         }
 
         float posX = player.transform.position.x - transform.position.x;
@@ -60,8 +68,35 @@ public class Skeleton : MonoBehaviour
             HealthBar.transform.eulerAngles = new Vector2(0,180);
         }
        
-        }
     }
-       
+    
+    private void FixedUpdate()
+    {
+        DetectPlayer();
+    }
+    
+    public void DetectPlayer()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, Radius, playerLayer);
+
+        if(hit != null)
+        {
+            //esta vendo o player
+            detectPlayer = true;
+        }
+        else
+        {
+            //nao esta vendo o player
+            detectPlayer = false;
+            animationControl.PlayAnim(0);
+            agent.isStopped = true;
+        }
+
+    }
+
+    public void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, Radius);
+    }
 
 }

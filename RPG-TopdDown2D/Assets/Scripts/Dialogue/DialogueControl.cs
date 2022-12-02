@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DialogueControl : MonoBehaviour
 {
+    private Player player;
     [System.Serializable]
     public enum idiom
     {
@@ -29,6 +30,8 @@ public class DialogueControl : MonoBehaviour
     private bool _isShowing; //se a janela está visível
     private int index; //variável de controle de um loop de repetição das falas
     private string[] sentences;
+    private string[] actorName;
+    private Sprite[] actorProfile;
 
     public static DialogueControl instance;
 
@@ -47,7 +50,7 @@ public class DialogueControl : MonoBehaviour
     
     void Start() //executado ao iniciar
     {
-        
+        player =FindObjectOfType<Player>();
     }
 
 
@@ -65,12 +68,15 @@ public class DialogueControl : MonoBehaviour
         }
     }
 
-    public void Speech(string[] txt) //chamar a fala
+    public void Speech(string[] txt, string[] name, Sprite[] sprite) //chamar a fala
     {
         if(!_isShowing)
         {
+            player.isPaused = true;
             dialogueObj.SetActive(true);
             sentences = txt;
+            actorName = name;
+            actorProfile = sprite;
             StartCoroutine(TypeSentence());
             _isShowing = true;
         }
@@ -83,6 +89,8 @@ public class DialogueControl : MonoBehaviour
             if(index < sentences.Length - 1)
             {
                 index++;
+                profileSprite.sprite = actorProfile[index];
+                actorNameText.text = actorName[index];
                 speechText.text = "";
                 StartCoroutine(TypeSentence());
             }
@@ -93,6 +101,8 @@ public class DialogueControl : MonoBehaviour
                 dialogueObj.SetActive(false);
                 sentences = null;
                 _isShowing= false;
+                actorNameText.text = "";
+                player.isPaused = false;
 
 
             }
