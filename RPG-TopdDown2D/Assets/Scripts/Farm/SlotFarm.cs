@@ -16,10 +16,11 @@ public class SlotFarm : MonoBehaviour
     
      [Header("Settings")]
     [SerializeField] private int digAmount; //quantidade de vezes para escavar
-    [SerializeField] private bool detecting;
+    private bool detecting;
+    private bool playerDetecting;
     [SerializeField] private float waterAmount; //total de agua para nascer uma cenoura
     private int initialDigAmount;
-    private float currentWater;
+    private float totalWater;
     private bool dugHole;
     private bool plantedCarrot;
  
@@ -38,30 +39,30 @@ public class SlotFarm : MonoBehaviour
         {
             if (detecting)
             {
-                currentWater += 0.01f;
+                totalWater += 0.01f;
             }
         
-            if(currentWater >= waterAmount && !plantedCarrot)
+            if(totalWater >= waterAmount && !plantedCarrot)
             {
                 audioSource.PlayOneShot(holeSFX);
                 spriterenderer.sprite = carrot; //encheu total de agua;
                 plantedCarrot = true;
-
             }
             
             if(Input.GetKeyDown(KeyCode.E) && plantedCarrot)
             {
-                if(playerItems.totalCarrot < playerItems.carrotLimit)
+                if(playerItems.totalCarrot < playerItems.carrotLimit && playerDetecting)
                 {
                     audioSource.PlayOneShot(carrotSFX);
                     spriterenderer.sprite = null;
-                    currentWater = 0f;
                     playerItems.totalCarrot += 1;
                     dugHole = false;
+                    totalWater = 0f;
                     plantedCarrot = false;
                 }
                     
             }
+            
         }
         
        
@@ -93,6 +94,11 @@ public class SlotFarm : MonoBehaviour
         {
             detecting = true;
         }
+        
+        if(collision.CompareTag("Player"))
+        {
+            playerDetecting = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -100,6 +106,10 @@ public class SlotFarm : MonoBehaviour
         if(collision.CompareTag("Water"))
         {
             detecting = false;
+        }
+        if(collision.CompareTag("Player"))
+        {
+            playerDetecting = false;
         }
     }
 }
