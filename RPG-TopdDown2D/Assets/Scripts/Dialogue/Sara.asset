@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091f5cbb6147f0f4e98cd54140c2cc22, type: 3}
+  m_Name: Sara
+  m_EditorClassIdentifier: 
+  actor: {fileID: 745348270831225060, guid: ba4c3fb744bbf834b9743cc1be2d4315, type: 3}
+  speakerSprite: {fileID: 0}
+  sentence: 
+  Dialogues:
+  - actorName: "Mo\xE7a"
+    profile: {fileID: 21300000, guid: 630ed47c53f6b1644910d97ef97290be, type: 3}
+    sentence:
+      portuguese: "Ol\xE1, belo garoto!"
+      spanish: 
+      english: 
+  - actorName: "Her\xF3i"
+    profile: {fileID: -1241552463, guid: 6a8fed323291fa148945e9f29643dfbe, type: 3}
+    sentence:
+      portuguese: Tudo bem?
+      spanish: 
+      english: 
+  - actorName: "Mo\xE7a"
+    profile: {fileID: 21300000, guid: 630ed47c53f6b1644910d97ef97290be, type: 3}
+    sentence:
+      portuguese: "Estou bem e voc\xEA?"
+      spanish: 
+      english: 
