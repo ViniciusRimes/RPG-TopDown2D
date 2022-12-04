@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HudController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class HudController : MonoBehaviour
 
     private Player player;
 
+    
+    
     [Header("Items")]
     [SerializeField] private Image waterUIBar;
     [SerializeField] private Image woodUIBar;
@@ -31,7 +34,6 @@ public class HudController : MonoBehaviour
         
         playerItems = FindObjectOfType<PlayerItems>();
         player = FindObjectOfType<Player>();
-        
     }
 
     void Update()
@@ -57,9 +59,5 @@ public class HudController : MonoBehaviour
         }
 
     }
-
-
-
-
 
 }
