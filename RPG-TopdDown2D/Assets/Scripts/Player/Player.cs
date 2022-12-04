@@ -6,14 +6,19 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public bool isPaused;
+    
+
+    
+    [Header("Movement")]
     [SerializeField]private float speed;
     [SerializeField]private float runSpeed;
 
+    [Header("Components")]
+    private Rigidbody2D rig;
     private PlayerItems playeritems;
     private PlayerAnim playerAnim;
     [HideInInspector] public int handlingObj; //objeto na mão do player
-     
-    private Rigidbody2D rig;
+    
     [HideInInspector]public float Damage;
 
     #region Varibles privates
@@ -24,45 +29,16 @@ public class Player : MonoBehaviour
     private Vector2 _direction; //direcao do player
     private bool _isDigging; //escavar
     private bool _isWatering; //regar
-    private bool _isAttack;
+    private bool _isAttack;//atacar
     #endregion
 
     #region Encapsulation
-    public Vector2 direction
-    {
-        get {return _direction;}
-        set {_direction = value;}
-    }
-
-    public bool isRuning
-    {
-        get {return _isRuning;}
-        set {_isRuning = value;}
-    }
-
-    public bool isRolling
-    {
-        get {return _isRolling;}
-        set {_isRolling = value;}
-    }
-
-    public bool isCutting{
-        get {return _isCutting;}
-        set {_isCutting = value;}
-    }
-    
-    public bool isDigging
-    {
-        get {return _isDigging;}
-        set {_isDigging = value;}
-    }
-
-    public bool isWatering
-    {
-        get {return _isWatering;}
-        set {_isWatering = value;}
-    }
-
+    public Vector2 direction{get {return _direction;}set {_direction = value;}}
+    public bool isRuning{get {return _isRuning;}set {_isRuning = value;}}
+    public bool isRolling{get {return _isRolling;}set {_isRolling = value;}}
+    public bool isCutting{get {return _isCutting;}set {_isCutting = value;}}
+    public bool isDigging{get {return _isDigging;}set {_isDigging = value;}}
+    public bool isWatering{get {return _isWatering;} set {_isWatering = value;}}
     public bool isAttack { get => _isAttack; set => _isAttack = value; }
 
 
@@ -71,15 +47,13 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-       
+        rig = GetComponent<Rigidbody2D>();
+        playeritems = FindObjectOfType<PlayerItems>();  
+        playerAnim = FindObjectOfType<PlayerAnim>();
     }
     void Start()
     {
-        rig = GetComponent<Rigidbody2D>();
         initialSpeed = speed;
-        playeritems = FindObjectOfType<PlayerItems>();  
-        playerAnim = FindObjectOfType<PlayerAnim>();
-
     }
     
     private void Update()
@@ -114,13 +88,8 @@ public class Player : MonoBehaviour
         OnDig();
         OnAttack();
         OnWatering();
-
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene("test");
-        }
     
     }
         
@@ -172,7 +141,9 @@ public class Player : MonoBehaviour
             _isRolling = false;
         }
     }
+    #endregion
 
+    #region Skills
     void OnCutting()
     {
         if(handlingObj == 0)
@@ -252,8 +223,6 @@ public class Player : MonoBehaviour
 
     }
 
-
-
     #endregion 
 
     #region Combat
@@ -278,16 +247,8 @@ public class Player : MonoBehaviour
             _isAttack = false;
         }
 
-
     }
 
-    #endregion
-
-
     
-
-
-
-
-
+    #endregion
 }

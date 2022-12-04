@@ -15,14 +15,15 @@ public class Casting : MonoBehaviour
 
 
     private void Awake()
-    {
+    {   
+        playeritems = FindObjectOfType<PlayerItems>(); // procurando o objeto na cena
+        playerAnim = FindObjectOfType<PlayerAnim>();
         
     }
     void Start()
     {
 
-        playeritems = FindObjectOfType<PlayerItems>(); // procurando o objeto na cena
-        playerAnim = FindObjectOfType<PlayerAnim>();
+
     }
 
     
@@ -48,15 +49,10 @@ public class Casting : MonoBehaviour
         if(randomValue <= percentage)
         {
             //consegiu pescar
-            Debug.Log("Pescou");
             Instantiate(fishPrefab, playeritems.transform.position + new Vector3(Random.Range(-2f, -1f), 0f, 0f), Quaternion.identity);
     
         }
-        else
-        {
-            //falhou
-            Debug.Log("Nao pescou");
-        }
+    
     }
     
     private void OnTriggerEnter2D(Collider2D collision)

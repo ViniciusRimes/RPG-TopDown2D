@@ -21,10 +21,16 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+       
+    }
+
     public void PlayBGM( AudioClip audio)
     {
         audioSource.clip = audio;
         audioSource.Play();
     }
+
     
 }

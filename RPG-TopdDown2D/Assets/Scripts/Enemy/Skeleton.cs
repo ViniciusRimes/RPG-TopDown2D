@@ -21,9 +21,6 @@ public class Skeleton : MonoBehaviour
     private bool detectPlayer;
 
     
-
-
-
     void Start()
     {
         currentHealth = totalHealth;
@@ -55,18 +52,19 @@ public class Skeleton : MonoBehaviour
             //enxergou o player
         }
 
-        float posX = player.transform.position.x - transform.position.x;
+            float posX = player.transform.position.x - transform.position.x;
           
-        if(posX > 0) //direita
-        {
-            transform.eulerAngles = new Vector2(0,0);
-            HealthBar.transform.eulerAngles = new Vector2(0,0);
-        }
-        else //esquerda
-        {
-            transform.eulerAngles = new Vector2 (0,180);
-            HealthBar.transform.eulerAngles = new Vector2(0,180);
-        }
+            if(posX > 0) //direita
+            {
+                transform.eulerAngles = new Vector2(0,0);
+                HealthBar.transform.eulerAngles = new Vector2(0,0);
+            }
+            else //esquerda
+            {
+                transform.eulerAngles = new Vector2 (0,180);
+                HealthBar.transform.eulerAngles = new Vector2(0,180);
+            }
+        
        
     }
     

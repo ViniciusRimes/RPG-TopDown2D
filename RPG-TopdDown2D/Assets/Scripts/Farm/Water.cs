@@ -10,12 +10,14 @@ public class Water : MonoBehaviour
 
     private Casting casting;
 
-    private PlayerItems player;
+    private PlayerItems playeritems;
+    private Player player;
     
     private void Awake()
     {
-        player = FindObjectOfType<PlayerItems>(); // procurando o objeto na cena
+        playeritems = FindObjectOfType<PlayerItems>(); // procurando o objeto na cena
         casting = FindObjectOfType <Casting>();
+        player = FindObjectOfType<Player>();
     }
     void Start()
     {
@@ -26,10 +28,10 @@ public class Water : MonoBehaviour
     
     void Update()
     {
-        if(detectingPlayer = true && Input.GetKeyDown(KeyCode.E) && !casting.isCasting)
+        if(detectingPlayer = true && Input.GetKeyDown(KeyCode.E) && !casting.isCasting && player.handlingObj == 2)
         {
        
-            player.WaterLimit(waterValue); //enchendo o regador
+            playeritems.WaterLimit(waterValue); //enchendo o regador
         }
     }
 

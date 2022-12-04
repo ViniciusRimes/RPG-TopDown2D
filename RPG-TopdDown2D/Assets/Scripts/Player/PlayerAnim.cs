@@ -11,12 +11,14 @@ public class PlayerAnim : MonoBehaviour
     private bool isHitting;
     private float timeCount;
     [SerializeField] private float recoveryTime = 1f;
+
     
     [Header("Attack Settings")]
     [SerializeField]private Transform point; 
     [SerializeField] private float radius;
     [SerializeField] private LayerMask enemyLayer;
 
+    
 
 
     
@@ -34,7 +36,6 @@ public class PlayerAnim : MonoBehaviour
     void Update()
     {
         OnMove();
-        OnAttackPlayer();
 
         if(isHitting)
         {
@@ -46,6 +47,9 @@ public class PlayerAnim : MonoBehaviour
             timeCount = 0f;
         }
         }
+
+        OnSkills();
+        OnAttackPlayer();
     
     }
 
@@ -81,6 +85,16 @@ public class PlayerAnim : MonoBehaviour
         {
             transform.eulerAngles = new Vector2(0,180f); //direcao rotacionando
         }
+         if(player.isRuning && player.direction.sqrMagnitude > 0) //correr
+        {
+            anim.SetInteger("Transition", 2);
+        }
+    }
+    #endregion
+
+    #region Skills  
+    public void OnSkills()
+    {
 
         if(player.isCutting)
         {
@@ -99,33 +113,32 @@ public class PlayerAnim : MonoBehaviour
             
         }
 
-        if(player.isRuning && player.direction.sqrMagnitude > 0) //correr
-        {
-            anim.SetInteger("Transition", 2);
-        }
     }
 
+    public void OnCastingStarted() //comecou pescar
+    {
+        anim.SetTrigger("IsCasting");
+        player.isPaused = true;
+    }   
+    public void OnCastingEndend() //parou de pescar
+    {
+        casting.OnCasting();
+        player.isPaused = false;
+    }
 
+    public void OnHammeringStarted() //comecou regar
+    {
+        anim.SetBool("isHammering", true);
+    }
+    public void OnHammeringEnded() //parou de regar
+    {
+        anim.SetBool("isHammering", false);
+    }
 
     #endregion
 
     #region Attack
 
-    public void OnAttack()
-    {
-        Collider2D hit = Physics2D.OverlapCircle(point.position, radius, enemyLayer);
-        
-        if(hit != null)
-        {
-            //atacou o inimigo
-           hit.GetComponentInChildren<AnimationControl>().OnHit();
-        }
-    }
-
-    public void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(point.position, radius);
-    }
 
     public void OnHurt() //ataque do inimigo
     {
@@ -143,34 +156,20 @@ public class PlayerAnim : MonoBehaviour
             anim.SetInteger("Transition", 6);
         }
     }
-    
-
+    public void OnAttack() // ataque do player
+    {
+        Collider2D hit = Physics2D.OverlapCircle(point.position, radius, enemyLayer);
+        
+        if(hit != null)
+        {
+            //atacou o inimigo
+           hit.GetComponentInChildren<AnimationControl>().OnHit();
+        }
+    }
+    public void OnDrawGizmosSelected() //esfera de colisao
+    {
+        Gizmos.DrawWireSphere(point.position, radius);
+    }
     #endregion
-    
-    
-    #region Casting
-    //é chamado quando o jogador pressiona o botao de acao na agua
-    public void OnCastingStarted()
-    {
-        anim.SetTrigger("IsCasting");
-        player.isPaused = true;
-    }   
-    // chamado quando termina a animacao de pescar
-    public void OnCastingEndend()
-    {
-        casting.OnCasting();
-        player.isPaused = false;
-    }
-
-    public void OnHammeringStarted()
-    {
-        anim.SetBool("isHammering", true);
-    }
-    public void OnHammeringEnded()
-    {
-        anim.SetBool("isHammering", false);
-    }
-
-    #endregion
-
 }
+  
