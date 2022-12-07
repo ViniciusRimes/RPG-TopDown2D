@@ -39,6 +39,7 @@ public class AnimationControl : MonoBehaviour
             {
             //detecta colisao com o player
             playerAnim.OnHurt(); //hit
+            
 
             }
         }

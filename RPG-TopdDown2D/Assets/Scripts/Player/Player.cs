@@ -7,18 +7,16 @@ public class Player : MonoBehaviour
 {
     public bool isPaused;
     
-
-    
     [Header("Movement")]
     [SerializeField]private float speed;
     [SerializeField]private float runSpeed;
+    
 
     [Header("Components")]
     private Rigidbody2D rig;
     private PlayerItems playeritems;
     private PlayerAnim playerAnim;
     [HideInInspector] public int handlingObj; //objeto na mão do player
-    
     [HideInInspector]public float Damage;
 
     #region Varibles privates
@@ -246,9 +244,6 @@ public class Player : MonoBehaviour
         {
             _isAttack = false;
         }
-
     }
-
-    
     #endregion
 }
